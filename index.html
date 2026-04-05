@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор интернет-цитат</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="main">
+        <h1 class="main__title">Генератор интернет-цитат</h1>
+        <div class="main__img-wrap">
+            <img src="images/1.png" id="image" class="main__img show" alt="Иллюстрация">
+        </div>
+        <div class="main__quote-wrap">
+            <p id="quote" class="main__quote show">Кто рано встает, тот потом пожалеет о своем решении.</p>
+        </div>
+        <button class="main__button" id="generateBtn">Сгенерировать цитату</button>
+    </div>
+
+    <script>
+        const quote = document.getElementById("quote");
+        const image = document.getElementById("image");
+        const generateBtn = document.getElementById("generateBtn");
+
+        const quotesData = [
+            { start: 'Кто рано встает, ', end: 'тот потом пожалеет о своем решении.', img: '1.png' },
+            { start: 'Не бойся ошибаться, ', end: 'бойся не ошибаться.', img: '2.png' },
+            { start: 'Когда меня рожали, ', end: 'собственно, тогда я и родился.', img: '3.png' },
+            { start: 'Каждый может кинуть камень в волка, ', end: 'но не каждый может кинуть волка в камень.', img: '4.png' },
+            { start: 'Нельзя стоять, когда другие работают, ', end: 'надо лежать.', img: '5.png' },
+            { start: 'Иногда, жизнь — это жизнь, ', end: 'а ты в ней — иногда.', img: '6.png' },
+        ];
+
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        let currentQuote = '';
+        let currentImg = '';
+
+        function generateQuote() {
+            const randomData = getRandomElement(quotesData);
+            
+            currentQuote = randomData.start + randomData.end;
+            currentImg = randomData.img;
+
+            hide();
+        }
+
+        function hide() {
+            image.classList.remove('show');
+            quote.classList.remove('show');
+            setTimeout(show, 500);
+        }
+
+        function show() {
+          
+            if (currentQuote.length <= 48) {
+                quote.style.fontSize = '42px';
+                quote.style.textAlign = 'center';
+            } else {
+                quote.style.fontSize = '';
+                quote.style.textAlign = '';
+            }
+
+            image.src = 'images/' + currentImg;
+            quote.textContent = currentQuote;
+
+            image.classList.add('show');
+            quote.classList.add('show');
+        }
+
+        generateBtn.addEventListener('click', generateQuote);
+      
+    </script>
+</body>
+</html>
